@@ -121,4 +121,5 @@ data_dict = {-1:[[1,7],
 svm = Support_VM()
 svm.fit(data=data_dict)
 print(svm.predict([2,5]))
+print(svm.predict([20,5]))
 svm.visualize()
