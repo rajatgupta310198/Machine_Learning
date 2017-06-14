@@ -3,19 +3,19 @@ import numpy as np
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 
-
+number_of_hidden_nodes = 250
 iris = load_iris()
 X = iris.data
 Y = iris.target
 Y = np.eye(3)[Y]
 
 def neural_net(X,n_dim):
-   W_1 = tf.Variable(tf.random_normal([n_dim,250]))
-   b_1 = tf.Variable(tf.zeros([250]))
+   W_1 = tf.Variable(tf.random_normal([n_dim,number_of_hidden_nodes]))
+   b_1 = tf.Variable(tf.zeros([number_of_hidder_nodes]))
    l_1 = tf.matmul(X,W_1) + b_1
    l_1 = tf.nn.relu(l_1)
 
-   W_O = tf.Variable(tf.random_normal([250,3]))
+   W_O = tf.Variable(tf.random_normal([number_of_hidder_nodes,3]))
    b_O = tf.Variable(tf.zeros([3]))
    output = tf.matmul(l_1,W_O) + b_O
    #output = tf.nn.softmax(output)
