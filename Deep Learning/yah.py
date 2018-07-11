@@ -5,17 +5,17 @@ import seaborn as sns
 from sklearn.preprocessing import MinMaxScaler
 import tensorflow as tf
 
-df = pd.read_csv('y_nifty.csv')
-#df = df.drop(['Date'],axis=1)
-"""for col in df:
-    for i,item in enumerate(df[col]):
-        if item=='null':
-            df[col][i] = np.nan
+df = pd.read_csv('yah.csv')
+# df = df.drop(['Date'],axis=1)
+# for col in df:
+#     for i,item in enumerate(df[col]):
+#         if item=='null':
+#             df[col][i] = np.nan
+# df = df.dropna(inplace=False)
+# for col in df:
+#     print(df[col].isnull().sum())
+# df.to_csv('yah.csv',index=False)
 
-df = df.dropna(inplace=False)
-for col in df:
-    print(df[col].isnull().sum())
-df.to_csv('y_nifty.csv',index=False)"""
 df = df.drop(['Adj Close','Volume'],axis=1)
 
 
@@ -26,11 +26,11 @@ df_test = df[1059:]
 scaler = MinMaxScaler()
 
 X_train = scaler.fit_transform(df_train.drop(['Close'],axis=1).as_matrix())
-y_train = scaler.fit_transform(df_train['Close'].as_matrix())
+y_train = scaler.fit_transform(df_train['Close'].as_matrix().reshape(-1, 1))
 #y_train = df_train['Close'].as_matrix()
 
 X_test = scaler.fit_transform(df_test.drop(['Close'],axis=1).as_matrix())
-y_test = scaler.fit_transform(df_test['Close'].as_matrix())
+y_test = scaler.fit_transform(df_test['Close'].as_matrix().reshape(-1, 1))
 #y_test = df_test['Close'].as_matrix()
 print(X_train.shape)
 print(np.max(y_test),np.max(y_train),np.min(y_test),np.min(y_train))
@@ -76,7 +76,7 @@ c_test = []
 
 
 with tf.Session() as sess:
-    sess.run(tf.initialize_all_variables())
+    sess.run(tf.global_variables_initializer())
 
     saver = tf.train.Saver()
     y_t = denormalize(df_train,y_train)
@@ -127,5 +127,6 @@ with tf.Session() as sess:
     plt.title('Stock Market Nifty')"""
     #plt.show()
     if input('Save model ? [Y/N]') == 'Y':
-        saver.save(sess,'yahoo_dataset.ckpt')
+        import os
+        saver.save(sess, os.getcwd() + '/yahoo_dataset.ckpt')
         print('Model Saved')
