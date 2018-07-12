@@ -6,6 +6,12 @@ from sklearn.preprocessing import MinMaxScaler
 import tensorflow as tf
 
 df = pd.read_csv('yah.csv')
+
+# Line 9 to 17 is for preprocessing and saving the dataset downloaded from yahoo website
+# It is not necessary to run these codes if you are using provided dataset in repo.
+# If you want to use your own dataset downloaded from yahoo then first run these with commented rest.
+# After that you can run as usual provided.
+
 # df = df.drop(['Date'],axis=1)
 # for col in df:
 #     for i,item in enumerate(df[col]):
@@ -76,7 +82,7 @@ c_test = []
 
 
 with tf.Session() as sess:
-    sess.run(tf.global_variables_initializer())
+    sess.run(tf.initialize_all_variables())
 
     saver = tf.train.Saver()
     y_t = denormalize(df_train,y_train)
