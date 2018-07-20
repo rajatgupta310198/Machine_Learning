@@ -55,7 +55,7 @@ class GAN(object):
 
 		# Initialize session to run ops in
 		self._sess = tf.Session()
-		self._sess.run(tf.initialize_all_variables())
+		self._sess.run(tf.global_variables_initializer())
 
 	def discriminator(self, x, reuse=False):
 		with tf.variable_scope("D", reuse=reuse):
