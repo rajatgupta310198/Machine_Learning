@@ -4,7 +4,7 @@ import numpy as np
 import os
 
 X = tf.placeholder("float")
-BASE_PATH =   'path to repo'
+BASE_PATH = '/Users/bapigupta/Documents/GitHub/Machine_Learning'  #path to repo
 
 #encoder 
 W1 = tf.Variable(tf.random_normal([784, 512]))
